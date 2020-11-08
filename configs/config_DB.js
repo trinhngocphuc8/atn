@@ -1,14 +1,14 @@
 module.exports = {
     localdb: {
-        urldb : 'mongodb://localhost:27017/newshop',
-        dbname : "newshop",
+        urldb : 'mongodb+srv://phucngu123:phuc123@cluster0.nkzej.mongodb.net/atn-shop?retryWrites=true&w=majority',
+        dbname : "atn-shop",
         dbusername : "",
         dbpassword : "",
     },
 
     clouddb: {
-        urldb : 'mongodb://localhost:27017/newshop',
-        dbname : "newshop",
+        urldb : 'mongodb+srv://phucngu123:phuc123@cluster0.nkzej.mongodb.net/atn-shop?retryWrites=true&w=majority',
+        dbname : "atn-shop",
         dbusername : "",
         dbpassword : "",
     }
