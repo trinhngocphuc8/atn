@@ -53,15 +53,13 @@ module.exports = router;
 
 app.get('/product', productViewPage);
 function productViewPage(req, res) {
-    
-    if (session.user) 
+    if (session.user)
     {
         MongoClient.connect(urldb, { useUnifiedTopology: true }, function(err, db) {
             if (err) throw err;
-            var dbo = db.db("newshop");
+            var dbo = db.db("atn-shop");
             dbo.collection("product").find({}).toArray(function(err, productlist) {
               if (err) throw err;
-              
                 res.render("pages/product-list",  {
                     title: "ATN-Shop PRODUCT page", 
                     username: session.user.username,
@@ -73,9 +71,8 @@ function productViewPage(req, res) {
               db.close();
             });
           });
-                    
 
-        
+
     } else {
         res.redirect('/login');
     }    
