@@ -75,7 +75,7 @@ function productViewPage(req, res) {
 
     } else {
         res.redirect('/login');
-    }    
+    }
     console.log("\n\t ... connect PRODUCT from ", req.connection.remoteAddress, req.headers.host);
 }
 
