@@ -56,18 +56,6 @@ app.set('view engine', 'ejs');
 /// ------------------ VAR - global
 var chattingLog = [];
 
-/// ------------------ ROUTer - ROUTing
-var adminControl = require('./controllers/admin');
-app.use('/admin', adminControl);
-
-var productControl = require('./controllers/product');
-app.use('/product', productControl);
-productControl.params = { configHeader: configHeader, configDB: configDB};
-
-var uploadControl = require('./controllers/upload');
-app.use('/upload', uploadControl);
-uploadControl.params = { configHeader: configHeader, configDB: configDB};
-// uploadControl.uploadStore = uploadStore;
 
 /// ------------------ Khai bao cac Control, hàm , ... 
 /// ..................................................
@@ -200,6 +188,28 @@ function add_to_cart(req, res) {
 }
 
 /// ..................................................
+app.get('/user/create', createUserPage);
+function createUserPage(req, res) {
+    if (session.user) {
+        if (req.query.username && req.query.username.trim() != "") {
+            accsubmit = {
+                username : req.query.username.trim(),
+                password : req.query.password.trim()
+            };
+            session.user = accsubmit;
+            libDB.res_insertDB(MongoClient, urldb, "newshop", "user",
+                accsubmit, "pages/user_create", {title: "ATN-Shop create USER page" , configHeader: configHeader , currpage: "create User"}, "Notify", res );
+            console.log("\t create ", accsubmit);
+        } else {
+            res.render("pages/user_create", {title: "ATN-Shop create USER page", Notify: "", configHeader: configHeader , currpage: "create User" });
+        }
+        console.log("\t /user/create ");
+    } else {
+        res.redirect('/login');
+    }
+}
+
+/// ..................................................
 app.get('/login', loginPage);
 function loginPage(req, res) {
     if (session.user) {
@@ -287,7 +297,7 @@ function writeLog(dataw) {
     var wday = [ "CN", "T2", "T3", "T4", "T5", "T6", "T7"];
     var gd = today.getDay();
     
-    var strDate = "" + yyyy + "_" + mm + "_" + dd + "_" + wday[gd] + ".log";
+    var strDate = "" + yyyy + "" + mm + "" + dd + "_" + wday[gd] + ".log";
 
     var h = today.getHours();
     var m = today.getMinutes();
