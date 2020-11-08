@@ -178,7 +178,7 @@ function add_to_cart(req, res) {
         req.session.cart[id] = {
             name: name,
             id: id,
-            qty: 1,
+            qty: 3,
             price: price,
             total: price
         }
