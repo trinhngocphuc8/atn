@@ -91,8 +91,8 @@ function productViewPage(req, res) {
     {
         MongoClient.connect(urldb, { useUnifiedTopology: true }, function(err, db) {
             if (err) throw err;
-            var dbo = db.db("newshop");
-            dbo.collection("product").find({}).toArray(function(err, productlist) {
+            var dbo = db.db("atn-shop");
+            dbo.collection("atn-shop").find({}).toArray(function(err, productlist) {
               if (err) throw err;
               
                 res.render("pages/product-list",  {
