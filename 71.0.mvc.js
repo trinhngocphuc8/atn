@@ -84,7 +84,7 @@ function homePage(req, res) {
 
 
 /// ..................................................
-app.get('/product', productViewPage);
+app.get('/product/view', productViewPage);
 function productViewPage(req, res) {
     
     if (session.user) 
