@@ -174,28 +174,29 @@ function orderPage(req, res) {
 
 }
 
+app.get('/product/add_to_cart', add_to_cart);
+function add_to_cart(req, res) {
 
+    var id = req.query.id;
+    var name = req.query.name;
+    var price = req.query.price;
 
-/// ..................................................
-app.get('/user/create', createUserPage);
-function createUserPage(req, res) {
-    if (session.user) {
-        if (req.query.username && req.query.username.trim() != "") {
-            accsubmit = {
-                username : req.query.username.trim(),
-                password : req.query.password.trim()
-            };
-            session.user = accsubmit;
-            libDB.res_insertDB(MongoClient, urldb, "newshop", "user",
-                accsubmit, "pages/user_create", {title: "ATN-Shop create USER page" , configHeader: configHeader , currpage: "create User"}, "Notify", res );
-            console.log("\t create ", accsubmit);
-        } else {
-            res.render("pages/user_create", {title: "ATN-Shop create USER page", Notify: "", configHeader: configHeader , currpage: "create User" });
+    if(!req.session.cart) req.session.cart = {};
+
+    if(id in req.session.cart) {
+        req.session.cart[id].qty++;
+        req.session.cart[id].total = req.session.cart[id].qty * price;
+    }else {
+        req.session.cart[id] = {
+            name: name,
+            id: id,
+            qty: 1,
+            price: price,
+            total: price
         }
-        console.log("\t /user/create ");
-    } else {
-        res.redirect('/login');
     }
+
+    res.send(req.session.cart);
 }
 
 /// ..................................................
