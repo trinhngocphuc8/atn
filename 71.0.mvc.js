@@ -327,8 +327,8 @@ function qrPage(req, res) {
 
     console.log('\t ... get QR INF ! ');
     for(var key in inter) {
-        if (key.indexOf("Wi-Fi") >= 0) {
-            var str = "http://" +
+        if (key.indexOf("Wi-Fi") >= 0) {             
+            var str = "http://" + 
                 inter[key][1]["address"] + ":"
                 + PORT + "/client";
             var sv = new QRCode({
